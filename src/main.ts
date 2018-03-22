@@ -90,7 +90,7 @@ function create() {
     engine.container.appendChild(fpsMeter.domElement);
 
     /* bunny */
-    var bunny = new Bunny(PIXI.Texture.fromImage('images/bunny.png'))
+    var bunny = new Bunny(PIXI.Texture.fromImage('images/bunny.png'));
     engine.bunny = bunny;
     engine.stage.addChild(bunny.mySprite);
 
