@@ -1,8 +1,29 @@
 // main.ts
 
-/// <reference path="./../../node_modules/pixi-typescript/pixi.js.d.ts" />
+/// <reference path="./../node_modules/pixi-typescript/pixi.js.d.ts" />
 
 import PIXI = require("pixi.js");
+
+
+class Bunny {
+
+    private myTexture :  PIXI.Texture;
+    public mySprite : PIXI.Sprite;
+
+    constructor(theTexture : PIXI.Texture) {
+        this.myTexture = theTexture;
+        this.mySprite = new PIXI.Sprite(this.myTexture);
+
+        this.mySprite.anchor.x = 0.5;
+        this.mySprite.anchor.y = 0.5;
+        this.mySprite.position.x = 400;
+        this.mySprite.position.y = 300;
+
+
+
+    }
+    
+}
 
 const params = {
     backgroundColor: 0x000000,
@@ -63,6 +84,9 @@ function create() {
     fpsMeter.domElement.style.zIndex = "10";
     fpsMeter.domElement.style.fontFamily = "monospace";
     engine.container.appendChild(fpsMeter.domElement);
+    var bunny = new Bunny(PIXI.Texture.fromImage('assets/bunny'))
+    engine.stage.addChild(bunny.mySprite);
+
 
     setInterval(update, 1000.0 / engine.fps);
     render();
@@ -70,9 +94,10 @@ function create() {
 
 function update() {
     let now = performance.now();
-    let frameTime = now - engine.elapsed;
-    let timeRatio = frameTime * engine.fps * 0.001;
+    //let frameTime = now - engine.elapsed;
+    //let timeRatio = frameTime * engine.fps * 0.001;
 
+	
     engine.elapsed = now;
 } // update
 
@@ -81,6 +106,7 @@ function render() {
     let now = performance.now();
     let frameTime = now - fpsMeter.elapsed;
 
+    
     engine.renderer.render(engine.stage);
 
     /* FPS Meter */

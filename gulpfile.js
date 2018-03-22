@@ -15,7 +15,6 @@ const gulpif = require("gulp-if");
 const changed = require("gulp-changed");
 const browserSync = require("browser-sync");
 const runSequence = require("run-sequence");
-const tape = require("gulp-tape");
 const through = require("through2");
 const fs = require("fs");
 const merge = require("merge2");
@@ -122,9 +121,9 @@ gulp.task("copy", () => {
 
 // Rebuild on change
 gulp.task("watch", () => {
-    runSequence(["bundle", "copy"], "test");
+    runSequence(["bundle", "copy"]);
     gulp.watch(settings.paths.src + "**", () => {
-        runSequence(["bundle", "copy"], "test");
+        runSequence(["bundle", "copy"]);
     });
 });
 
@@ -143,28 +142,13 @@ gulp.task("serve", () => {
 
 // Rebuild on change and refresh the browser
 gulp.task("watchRefresh", () => {
-    runSequence(["bundle", "copy"], ["serve", "test"]);
+    runSequence(["bundle", "copy"], ["serve"]);
     gulp.watch(settings.paths.src + "**", () => {
-        runSequence(["bundle", "copy"], "test", browserSync.reload);
+        runSequence(["bundle", "copy"], browserSync.reload);
     });
 });
 
 // Default task
 gulp.task("default", ["bundle", "copy"]);
 
-// Unit tests
-gulp.task("test", () => {
-    if (!debug) return;
 
-    process.stdout.write("\x1Bc");
-    const reporter = through.obj();
-    reporter
-        .pipe(process.stdout);
-
-    return gulp.src(settings.paths.tests + "*.js")
-        .pipe(tape({
-            "bail": false,
-            "outputStream": fs.createWriteStream(settings.paths.tests + "tape.log"),
-            "reporter": reporter
-        }));
-});

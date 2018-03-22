@@ -1,6 +1,8 @@
 # Pixi.js Project #
 
-A generic frontend **Pixi.js** project boiler plate in **TypeScript** with **source map** support.
+A generic frontend **Pixi.js** project boiler plate in **TypeScript** with **source map** support demonstrating testing via example class.
+This is based on a project by **yahiko** but I replaced Tape with Mocha and Chai and a bit different code structure.
+Unfortunately I was not able to get this boilerplate to directly debug von Visual Studio Code (v1.21.1). If somebody knows how to change this so this works, please let me know how. In case I set the packages.json.paths.debug to "src/" breakpoint hits and this Edit-And-Continue WILL work in Visual Studio Code, but then you cannot use the **gulp watchRefresh" task anymore...
 
 Main features:
 
@@ -19,18 +21,21 @@ Main dependencies:
 * **JavaScript File Bundler**: [Browserify](https://github.com/substack/node-browserify)
 * **Code Minifier**: [Uglify](https://github.com/mishoo/UglifyJS2)
 * **HTTP Server**: [BrowserSync](https://github.com/Browsersync/browsersync.github.io)
-* **Unit Test Runner**: [Tape](https://github.com/substack/tape)
+* **Unit Testing Framework**: [Mocha](https://mochajs.org/)
+* **Unit Test Assertion Library**: [Chai](http://www.chaijs.com/)
 * **Pixi.js**: [Pixi.js](http://www.pixijs.com/)
+* **Test Server** [Ts-Node](https://github.com/TypeStrong/ts-node)
+
 
 
 ## Installation ##
 
-Node, TypeScript and TSLint should be installed globally.
+Node, TypeScript and TSLint should be installed globally, probably also ts-node.
 
-	$> git clone https://github.com/yahiko00/PixiProject.git <new folder>
+	$> git clone https://github.com/schmendrick/PixiProject.git <new folder>
 	$> cd <new folder>
 	$> git init
-	$> npm install
+	$> yarn install
 
 
 ## Build ##
@@ -45,15 +50,24 @@ The following command builds the project, runs unit tests, and opens the browser
 
 	$> npm run watchRefresh
 
+To run the unit tests, make sure ts-node is installed
+
+	$> npm run test
+
 For more predefined commands, see `package.json`, item `scripts`.
 
-Unit tests are logged in the `tests/` folder, file `tape.log`.
+Unit tests are in the `test/` folder (in original they were in `tests/`)
 
 ## Contributors ##
 
 yahiko
-
+schmendrick
 
 ## Licence ##
 
 MIT
+
+## possible TODOs ##
+* Get Visual Studio Code Debugging to work
+* move CSS folder out of "src"
+* get some animation of new asset bunny.png into the pixi element
