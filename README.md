@@ -70,4 +70,3 @@ MIT
 ## possible TODOs ##
 * Get Visual Studio Code Debugging to work
 * move CSS folder out of "src"
-* get some animation of new asset bunny.png into the pixi element

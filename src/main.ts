@@ -18,9 +18,12 @@ class Bunny {
         this.mySprite.anchor.y = 0.5;
         this.mySprite.position.x = 400;
         this.mySprite.position.y = 300;
+    }
 
-
-
+    update() {
+        if (this.mySprite.position.x > 600)
+            this.mySprite.position.x = 400;
+        this.mySprite.position.x++;    
     }
     
 }
@@ -39,6 +42,7 @@ class Engine {
     public graphics: PIXI.Graphics;
     public fps: int;
     public elapsed: double;
+    public bunny: Bunny;
 
     constructor(width: int, height: int, containerId?: string, fps = 60) {
         this.loader = PIXI.loader;
@@ -84,9 +88,11 @@ function create() {
     fpsMeter.domElement.style.zIndex = "10";
     fpsMeter.domElement.style.fontFamily = "monospace";
     engine.container.appendChild(fpsMeter.domElement);
-    var bunny = new Bunny(PIXI.Texture.fromImage('assets/bunny'))
-    engine.stage.addChild(bunny.mySprite);
 
+    /* bunny */
+    var bunny = new Bunny(PIXI.Texture.fromImage('images/bunny.png'))
+    engine.bunny = bunny;
+    engine.stage.addChild(bunny.mySprite);
 
     setInterval(update, 1000.0 / engine.fps);
     render();
@@ -105,8 +111,8 @@ function render() {
     requestAnimationFrame(render);
     let now = performance.now();
     let frameTime = now - fpsMeter.elapsed;
+    engine.bunny.update();
 
-    
     engine.renderer.render(engine.stage);
 
     /* FPS Meter */
